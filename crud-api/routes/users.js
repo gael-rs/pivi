@@ -46,12 +46,21 @@ router.post('/', async (req, res) => {
   }
 });
 
-// PUT /api/users/:id - Actualizar un usuario
+// PUT /api/users/:id - Actualizar biografía de un usuario
 router.put('/:id', async (req, res) => {
   try {
+    const { id } = req.params;
+    const { bio } = req.body;
+    
+    // Validar que el ID tenga el formato correcto de MongoDB ObjectId
+    if (!id.match(/^[0-9a-fA-F]{24}$/)) {
+      return res.status(400).json({ error: 'ID inválido' });
+    }
+    
+    // Solo actualizar la biografía
     const user = await User.findByIdAndUpdate(
-      req.params.id,
-      { ...req.body, updatedAt: Date.now() },
+      id,
+      { bio, updatedAt: Date.now() },
       { new: true, runValidators: true }
     ).select('-password');
     
