@@ -33,7 +33,7 @@ const postSchema = new mongoose.Schema({
   }
 });
 
-const Post = mongoose.model('Post', postSchema);
+const Post = mongoose.model('Post', postSchema, 'Posts'); // 'Posts' es el nombre de la colección en la BD
 
 export default Post;
 

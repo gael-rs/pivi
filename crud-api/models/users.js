@@ -30,6 +30,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: ''
   },
+  avatar: {
+    type: String,
+    default: ''
+  },
   createdAt: {
     type: Date,
     default: Date.now
@@ -40,7 +44,7 @@ const userSchema = new mongoose.Schema({
   }
 });
 
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model('User', userSchema, 'Users'); // 'Users' es el nombre de la colección en la BD
 
 export default User;
 

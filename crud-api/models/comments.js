@@ -26,7 +26,7 @@ const commentSchema = new mongoose.Schema({
   }
 });
 
-const Comment = mongoose.model('Comment', commentSchema);
+const Comment = mongoose.model('Comment', commentSchema, 'Comments'); // 'Comments' es el nombre de la colección en la BD
 
 export default Comment;
 

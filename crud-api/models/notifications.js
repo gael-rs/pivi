@@ -31,7 +31,7 @@ const notificationSchema = new mongoose.Schema({
   }
 });
 
-const Notification = mongoose.model('Notification', notificationSchema);
+const Notification = mongoose.model('Notification', notificationSchema, 'Notifications'); // 'Notifications' es el nombre de la colección en la BD
 
 export default Notification;
 

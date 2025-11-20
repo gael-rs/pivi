@@ -20,7 +20,7 @@ const followSchema = new mongoose.Schema({
 // Índice compuesto para evitar seguir duplicado
 followSchema.index({ followerId: 1, followingId: 1 }, { unique: true });
 
-const Follow = mongoose.model('Follow', followSchema);
+const Follow = mongoose.model('Follow', followSchema, 'Follows'); // 'Follows' es el nombre de la colección en la BD
 
 export default Follow;
 

@@ -20,7 +20,7 @@ const likeSchema = new mongoose.Schema({
 // Índice compuesto para evitar likes duplicados
 likeSchema.index({ postId: 1, userId: 1 }, { unique: true });
 
-const Like = mongoose.model('Like', likeSchema);
+const Like = mongoose.model('Like', likeSchema, 'Likes'); // 'Likes' es el nombre de la colección en la BD
 
 export default Like;
 
