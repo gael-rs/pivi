@@ -76,7 +76,14 @@ router.put('/:id', async (req, res) => {
 // DELETE /api/users/:id - Eliminar un usuario
 router.delete('/:id', async (req, res) => {
   try {
-    const user = await User.findByIdAndDelete(req.params.id);
+    const { id } = req.params;
+    
+    // Validar que el ID tenga el formato correcto de MongoDB ObjectId
+    if (!id.match(/^[0-9a-fA-F]{24}$/)) {
+      return res.status(400).json({ error: 'ID inválido' });
+    }
+    
+    const user = await User.findByIdAndDelete(id);
     if (!user) {
       return res.status(404).json({ error: 'Usuario no encontrado' });
     }
