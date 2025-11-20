@@ -1,0 +1,20 @@
+services:
+  mongo:
+    image: mongodb/mongodb-community-server:latest
+    container_name: mongodb-community
+    ports:
+      - "27018:27017"
+    volumes:
+      - /home/mongo-community-server:/data/db
+
+  node-app:
+    build: .
+    container_name: crud-api
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/crud_api
+      - PORT=3000
+    depends_on:
+      - mongo
+    restart: always
