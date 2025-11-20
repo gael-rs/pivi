@@ -16,7 +16,14 @@ router.get('/', async (req, res) => {
 // GET /api/users/:id - Obtener un usuario por ID
 router.get('/:id', async (req, res) => {
   try {
-    const user = await User.findById(req.params.id).select('-password');
+    const { id } = req.params;
+    
+    // Validar que el ID tenga el formato correcto de MongoDB ObjectId
+    if (!id.match(/^[0-9a-fA-F]{24}$/)) {
+      return res.status(400).json({ error: 'ID inválido' });
+    }
+    
+    const user = await User.findById(id).select('-password');
     if (!user) {
       return res.status(404).json({ error: 'Usuario no encontrado' });
     }
