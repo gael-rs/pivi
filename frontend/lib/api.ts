@@ -77,9 +77,13 @@ async function fetchAPI<T>(endpoint: string, options?: RequestInit): Promise<T> 
 
 // API de Usuarios
 export const usersAPI = {
+  login: (email: string, password: string) => fetchAPI<User>('/users/login', {
+    method: 'POST',
+    body: JSON.stringify({ email, password }),
+  }),
   getAll: () => fetchAPI<User[]>('/users'),
   getById: (id: string) => fetchAPI<User>(`/users/${id}`),
-  create: (data: Partial<User>) => fetchAPI<User>('/users', {
+  create: (data: Partial<User & { password: string }>) => fetchAPI<User>('/users', {
     method: 'POST',
     body: JSON.stringify(data),
   }),

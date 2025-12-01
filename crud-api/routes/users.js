@@ -3,6 +3,34 @@ import User from '../models/users.js';
 
 const router = express.Router();
 
+// POST /api/users/login - Login de usuario
+router.post('/login', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    
+    if (!email || !password) {
+      return res.status(400).json({ error: 'Email y contraseña son requeridos' });
+    }
+    
+    // Buscar usuario por email (normalizado a lowercase)
+    const user = await User.findOne({ email: email.toLowerCase().trim() });
+    if (!user) {
+      return res.status(401).json({ error: 'Email o contraseña incorrectos' });
+    }
+    
+    // Comparar contraseña (comparación directa, sin hash por ahora)
+    if (user.password !== password) {
+      return res.status(401).json({ error: 'Email o contraseña incorrectos' });
+    }
+    
+    const userResponse = user.toObject();
+    delete userResponse.password;
+    res.json(userResponse);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // GET /api/users - Obtener todos los usuarios
 router.get('/', async (req, res) => {
   try {
@@ -36,7 +64,13 @@ router.get('/:id', async (req, res) => {
 // POST /api/users - Crear un nuevo usuario
 router.post('/', async (req, res) => {
   try {
-    const user = new User(req.body);
+    // Normalizar email a lowercase
+    const userData = {
+      ...req.body,
+      email: req.body.email?.toLowerCase().trim(),
+    };
+    
+    const user = new User(userData);
     await user.save();
     const userResponse = user.toObject();
     delete userResponse.password;

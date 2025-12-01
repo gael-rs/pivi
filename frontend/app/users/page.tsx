@@ -35,44 +35,46 @@ export default function UsersPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="container mx-auto px-4 max-w-4xl">
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-white py-8">
+      <div className="container mx-auto px-4 max-w-6xl">
         <div className="mb-6">
-          <Link href="/" className="text-blue-600 hover:underline">
+          <Link href="/" className="inline-flex items-center text-orange-600 hover:text-orange-700 font-medium">
             ← Volver al inicio
           </Link>
         </div>
-        <h1 className="text-4xl font-bold mb-8">Usuarios</h1>
+        <h1 className="text-4xl font-bold mb-8 text-gray-800">Usuarios</h1>
         
         {error && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6">
             {error}
           </div>
         )}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {users.map((user) => (
-            <div key={user._id} className="bg-white rounded-lg shadow-md p-6">
-              <div className="flex items-center gap-4">
+            <Link
+              key={user._id}
+              href={`/users/${user._id}`}
+              className="bg-white rounded-2xl shadow-xl p-6 hover:shadow-2xl transition-shadow"
+            >
+              <div className="flex flex-col items-center text-center">
                 {user.avatar && (
                   <img
                     src={user.avatar}
                     alt={user.username}
-                    className="w-16 h-16 rounded-full"
+                    className="w-20 h-20 rounded-full border-4 border-orange-200 mb-4"
                   />
                 )}
-                <div className="flex-1">
-                  <h2 className="text-xl font-semibold">{user.username}</h2>
-                  <p className="text-gray-600 text-sm">{user.email}</p>
-                  {user.bio && (
-                    <p className="text-gray-800 mt-2">{user.bio}</p>
-                  )}
-                  <p className="text-xs text-gray-500 mt-2">
-                    Creado: {new Date(user.createdAt).toLocaleDateString()}
-                  </p>
-                </div>
+                <h2 className="text-xl font-bold text-gray-800 mb-1">{user.username}</h2>
+                <p className="text-gray-600 text-sm mb-2">{user.email}</p>
+                {user.bio && (
+                  <p className="text-gray-700 text-sm mb-3 line-clamp-2">{user.bio}</p>
+                )}
+                <p className="text-xs text-gray-500">
+                  Desde {new Date(user.createdAt).toLocaleDateString()}
+                </p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
