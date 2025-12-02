@@ -57,7 +57,10 @@ export default function Home() {
         try {
           const likes = await likesAPI.getByPost(post._id);
           const hasLiked = likes.some(
-            (like) => (typeof like.userId === 'object' ? like.userId._id : like.userId) === currentUser._id
+            (like) => {
+              const likeUserId = typeof like.userId === 'object' && like.userId !== null ? like.userId._id : like.userId;
+              return likeUserId === currentUser._id;
+            }
           );
           return { postId: post._id, hasLiked };
         } catch (err) {
@@ -86,7 +89,10 @@ export default function Home() {
         // Quitar like - buscar el like existente
         const likes = await likesAPI.getByPost(postId);
         const existingLike = likes.find(
-          (like) => (typeof like.userId === 'object' ? like.userId._id : like.userId) === currentUser._id
+          (like) => {
+            const likeUserId = typeof like.userId === 'object' && like.userId !== null ? like.userId._id : like.userId;
+            return likeUserId === currentUser._id;
+          }
         );
         if (existingLike) {
           await likesAPI.delete(existingLike._id);
@@ -180,9 +186,9 @@ export default function Home() {
         {/* Posts Feed */}
         <div className="space-y-6 mb-8">
           {posts.map((post) => {
-            const user = typeof post.userId === 'object' ? post.userId : null;
-            const postUserId = typeof post.userId === 'object' ? post.userId._id : post.userId;
-            const isOwner = currentUser && currentUser._id === postUserId;
+            const user = typeof post.userId === 'object' && post.userId !== null ? post.userId : null;
+            const postUserId = typeof post.userId === 'object' && post.userId !== null ? post.userId._id : (post.userId || null);
+            const isOwner = currentUser && postUserId && currentUser._id === postUserId;
             
             return (
               <div key={post._id} className="bg-white rounded-2xl shadow-xl p-6">
