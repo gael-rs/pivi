@@ -57,7 +57,7 @@ export default function CreatePost({ onPostCreated }: CreatePostProps) {
         <textarea
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition"
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition text-gray-900"
           placeholder="¿Qué estás pensando?"
           rows={4}
           required
@@ -66,7 +66,7 @@ export default function CreatePost({ onPostCreated }: CreatePostProps) {
           type="url"
           value={image}
           onChange={(e) => setImage(e.target.value)}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition"
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition text-gray-900"
           placeholder="URL de imagen (opcional)"
         />
         <button

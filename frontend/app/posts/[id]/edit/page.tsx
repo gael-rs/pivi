@@ -100,7 +100,7 @@ export default function EditPostPage() {
               <textarea
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition text-gray-900"
                 rows={6}
                 required
               />
@@ -114,7 +114,7 @@ export default function EditPostPage() {
                 type="url"
                 value={image}
                 onChange={(e) => setImage(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition text-gray-900"
                 placeholder="https://ejemplo.com/imagen.jpg"
               />
             </div>
